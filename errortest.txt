@@ -1,0 +1,7 @@
+// assuming using 9 floors
+// this should fail
+5 0 10
+// this should not
+10 3 5
+// this should fail
+15 100 53

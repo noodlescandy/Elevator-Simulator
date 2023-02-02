@@ -1,21 +1,54 @@
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.util.regex.Pattern;
+
 // reads in file and tests the elevator simulation. args[0] is num floors, args[1] is text file.
 public class ElevatorSim {
     public static void main(String[] args) {
-        // args[0] is number of building floors
+        int numFloors;
+        String fileName;
+        try {
+            numFloors = Integer.parseInt(args[0]);
+            fileName = args[1];
+        } catch (Exception e) {
+            System.err.println("Usage: ElevatorSim <number of floors> <file name>");
+            return;
+        }
+        PriQue<Passenger> passengerList = new PriorityQue<Passenger>();
+        try {
+            BufferedReader r = new BufferedReader(new FileReader(fileName));
+            String current = null;
+            while((current = r.readLine()) != null){
+                // ignore lines with //
+                // <arrival time> <destination floor> <time on destination floor>
+                // if destination floor = 0 or greater than numFloors, print an error message and go on to the next line of the file
+                current = current.trim();
+                if(current.charAt(0) != '/'){
+                    int firstSpace = current.indexOf(" ");
+                    int secondSpace = current.lastIndexOf(" ");
 
-        // agrs[1] is file holding the initial events 
-        // process file:
-        /*
-         * 
-        Each line in the file will represent a passenger, including the time they arrive, their destination floor, and the time they will spend on the destination floor. Close the file when finished.
-        If a line specifies a destination of floor 0, print an error message and go on to the next line of the file.
-        If a line specifies a destination floor which is greater than the number of floors in the building, print an error message and go on to the next line of the file.
-        Close the file when finished.
-
-         */
-
-        // ignore lines with //
-        // <arrival time> <destination floor> <time on destination floor>
+                    int arrivalTime = Integer.parseInt(current.substring(0, firstSpace));
+                    int destinationFloor = Integer.parseInt(current.substring(firstSpace+1, secondSpace));
+                    int timeOnFloor = Integer.parseInt(current.substring(secondSpace+1));
+                    
+                    if(destinationFloor < 1 || destinationFloor > numFloors){
+                        System.err.println("Destination Floor" + destinationFloor + " ground floor or too high, ignoring passenger.");
+                    }
+                    else{
+                        passengerList.insert(arrivalTime, new Passenger(arrivalTime, destinationFloor, timeOnFloor));
+                    }
+                }
+            }
+        } catch (Exception e) {
+            System.err.println("Trouble reading " + fileName);
+            System.err.println("Please provide a .txt file");
+            return;
+        }
+        
+        // debug
+        while(!passengerList.isEmpty()) {
+			System.out.println(passengerList.remove());
+		}
         // run simulation using saved list of passengers.
     }
 
