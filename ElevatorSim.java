@@ -1,6 +1,5 @@
 import java.io.BufferedReader;
 import java.io.FileReader;
-import java.util.regex.Pattern;
 
 // reads in file and tests the elevator simulation. args[0] is num floors, args[1] is text file.
 public class ElevatorSim {
@@ -19,9 +18,6 @@ public class ElevatorSim {
             BufferedReader r = new BufferedReader(new FileReader(fileName));
             String current = null;
             while((current = r.readLine()) != null){
-                // ignore lines with //
-                // <arrival time> <destination floor> <time on destination floor>
-                // if destination floor = 0 or greater than numFloors, print an error message and go on to the next line of the file
                 current = current.trim();
                 if(current.charAt(0) != '/'){
                     int firstSpace = current.indexOf(" ");
@@ -32,7 +28,7 @@ public class ElevatorSim {
                     int timeOnFloor = Integer.parseInt(current.substring(secondSpace+1));
                     
                     if(destinationFloor < 1 || destinationFloor > numFloors){
-                        System.err.println("Destination Floor" + destinationFloor + " ground floor or too high, ignoring passenger.");
+                        System.err.println("Destination Floor " + destinationFloor + " ground floor or too high, ignoring passenger.");
                     }
                     else{
                         passengerList.insert(arrivalTime, new Passenger(arrivalTime, destinationFloor, timeOnFloor));
@@ -45,11 +41,8 @@ public class ElevatorSim {
             return;
         }
         
-        // debug
-        while(!passengerList.isEmpty()) {
-			System.out.println(passengerList.remove());
-		}
-        // run simulation using saved list of passengers.
+        ElevatorSim sim = new ElevatorSim();
+        sim.run(passengerList, numFloors);
     }
 
     public void run(PriQue<Passenger> toLoad, int numFloors){
@@ -57,6 +50,8 @@ public class ElevatorSim {
         int clock = 0;
         int currentFloor = 0;
         while(!toLoad.isEmpty()){
+            System.out.println(toLoad.remove()); // debug
+            
             // check if passengers on elevator need to get off on this floor
                 // if passengers unload, skip to end
             
