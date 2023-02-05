@@ -18,13 +18,13 @@ public class PriorityQue<E> implements PriQue<E>{
 
     public void insert(int pri, E data) {
         Node current = head;
-        boolean flag = current != null && current.priority < pri;
+        boolean flag = current != null && pri >= current.priority;
         if(!flag){
             head = new Node(data, current, pri);
             return;
         }
         while(flag && current.next != null){
-            if(current.next.priority > pri){
+            if(pri < current.next.priority){ 
                 flag = !flag;
             }
             else{

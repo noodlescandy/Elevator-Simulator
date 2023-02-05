@@ -6,7 +6,8 @@ public class QueueTestor {
 		PriQue<String> myQ = new PriorityQue<String>();
 		myQ.insert(35, "thrity five");
 		myQ.insert(40, "forty");
-		myQ.insert(5, "five");
+		myQ.insert(5, "five-1");
+		myQ.insert(5, "five-2");
 		myQ.insert(10, "ten");
 		myQ.insert(15, "fifteen");
 		myQ.insert(12, "twelve");
