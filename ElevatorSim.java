@@ -14,7 +14,7 @@ public class ElevatorSim {
             return;
         }
         PriQue<Passenger> passengerList = new PriorityQue<Passenger>();
-        try (BufferedReader r = new BufferedReader(new FileReader(fileName))){ // poss issue
+        try (BufferedReader r = new BufferedReader(new FileReader(fileName))){
             String current = null;
             while((current = r.readLine()) != null){
                 current = current.trim();

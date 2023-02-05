@@ -1,5 +1,5 @@
 public class Passenger {
-    private static int count = 0;
+    private int count = 0;
     private int id;
     private int arrivalTime;
     private int destinationFloor;
@@ -13,28 +13,18 @@ public class Passenger {
         isLeaving = false;
         id = count++;
     }
-    
-
-    // debug method
-    public String toString(){
-        return "Arrives: " + arrivalTime + ", goes to floor " + destinationFloor + ", spending " + timeOnFloor + " time there.";
-    }
-
 
     public int getArrivalTime() {
         return arrivalTime;
     }
 
-
     public int getDestinationFloor() {
         return destinationFloor;
     }
 
-
     public int getTimeOnFloor() {
         return timeOnFloor;
     }
-
 
     public boolean isLeaving() {
         return isLeaving;
@@ -44,21 +34,17 @@ public class Passenger {
         isLeaving = true;
     }
 
-
     public void setArrivalTime(int arrivalTime) {
         this.arrivalTime = arrivalTime;
     }
-
 
     public void setDestinationFloor(int destinationFloor) {
         this.destinationFloor = destinationFloor;
     }
 
-
     public void setTimeOnFloor(int timeOnFloor) {
         this.timeOnFloor = timeOnFloor;
     }
-
 
     public void setLeaving(boolean isLeaving) {
         this.isLeaving = isLeaving;
